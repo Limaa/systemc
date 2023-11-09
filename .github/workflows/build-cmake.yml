@@ -1,0 +1,37 @@
+name: Build SystemC with CMake on multiple platforms
+
+on: [push, pull_request]
+
+
+jobs:
+  Build:
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        build_type: [Debug, Release]
+        c_compiler: [gcc, clang]
+
+        include:
+          - c_compiler: gcc
+            cpp_compiler: g++
+          - c_compiler: clang
+            cpp_compiler: clang
+
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure CMake
+        run: |
+          cmake -S ${{ github.workspace }} -B build \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+            -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
+            -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
+
+      - name: Build CMake
+        run: |
+          cmake --build build --parallel --verbose
+
