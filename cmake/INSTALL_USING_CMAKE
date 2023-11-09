@@ -152,6 +152,9 @@ BUILD_SHARED_LIBS             Build shared instead of static libraries
 BUILD_SOURCE_DOCUMENTATION    Build source code documentation using Doxygen
                               (default: OFF).
 
+SYSTEMC_BUILD_EXAMPLES        Build the examples directory
+                              (default: OFF).
+
 CMAKE_BUILD_TYPE              Specifies the build type on single-configuration
                               generators. (default: Release).
 

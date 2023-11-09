@@ -96,6 +96,9 @@
 # BUILD_SOURCE_DOCUMENTATION    Build source code documentation using Doxygen
 #                               (default: OFF).
 #
+# SYSTEMC_BUILD_EXAMPLES        Build the examples directory
+#                               (default: OFF).
+#
 # CMAKE_BUILD_TYPE              Specifies the build type on single-configuration
 #                               generators. (default: Release).
 #
@@ -294,6 +297,8 @@ if (BUILD_SHARED_LIBS AND (WIN32 OR CYGWIN))
 endif (BUILD_SHARED_LIBS AND (WIN32 OR CYGWIN))
 
 option (BUILD_SOURCE_DOCUMENTATION "Build source documentation with Doxygen." OFF)
+
+option (SYSTEMC_BUILD_EXAMPLES "Build the examples directory." OFF)
 
 option (DISABLE_ASYNC_UPDATES "Disable async_request_update() support." OFF)
 
@@ -645,6 +650,7 @@ message (STATUS "Settings to build SystemC ${SystemCLanguage_VERSION} (${SystemC
 message (STATUS "------------------------------------------------------------------------")
 message (STATUS "BUILD_SHARED_LIBS = ${BUILD_SHARED_LIBS}")
 message (STATUS "BUILD_SOURCE_DOCUMENTATION = ${BUILD_SOURCE_DOCUMENTATION}")
+message (STATUS "SYSTEMC_BUILD_EXAMPLES = ${SYSTEMC_BUILD_EXAMPLES}")
 message (STATUS "CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
 if (DISABLE_ASYNC_UPDATES)
   message ("DISABLE_ASYNC_UPDATES = ${DISABLE_ASYNC_UPDATES}")
@@ -724,7 +730,10 @@ message (STATUS "===============================================================
 ###############################################################################
 
 add_subdirectory (src)
-add_subdirectory (examples)
+
+if (SYSTEMC_BUILD_EXAMPLES)
+  add_subdirectory (examples)
+endif()
 
 
 ###############################################################################
